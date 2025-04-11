@@ -72,9 +72,8 @@ CSRF_COOKIE_SAMESITE = 'Lax'
 
 CSRF_COOKIE_HTTPONLY = False
 
-SESSION_COOKIE_SECURE = False  # Set to True in production with HTTPS
-
-CSRF_COOKIE_SECURE = False    # Set to True in production with HTTPS
+SESSION_COOKIE_SECURE = os.environ.get('SESSION_COOKIE_SECURE')
+CSRF_COOKIE_SECURE = os.environ.get('CSRF_COOKIE_SECURE')
 
 CSRF_USE_SESSIONS = False  # Add this line
 
