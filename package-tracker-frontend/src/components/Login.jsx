@@ -17,7 +17,13 @@ function LoginForm() {
     setError("");
 
     try {
-      await axios.post("/api/login/", { username, password });
+      await axios.post(
+        "/api/login/",
+        { username, password },
+        {
+          withCredentials: true, // 👈 CRUCIAL
+        }
+      );
       await checkAuthStatus();
       navigate("/admin"); // Redirect to admin dashboard after successful login
     } catch (err) {
