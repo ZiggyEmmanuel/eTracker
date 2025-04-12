@@ -11,7 +11,7 @@ export default defineConfig({
     proxy: {
       // If you want to proxy API requests during development
       "/api": {
-        target: "http://localhost:8000", // Backend server URL
+        target: import.meta.env.VITE_API_URL, // Dynamically use the env var for Backend server URL
         changeOrigin: true,
       },
     },
