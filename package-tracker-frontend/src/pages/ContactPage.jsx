@@ -232,7 +232,7 @@ const ContactPage = () => {
                   </div>
                   <div>
                     <h4 className="font-medium text-gray-900">Phone</h4>
-                    <p className="text-gray-600">+1 (555) 123-4567</p>
+                    <p className="text-gray-600">+63 903 296 0147</p>
                   </div>
                 </div>
 
@@ -255,7 +255,7 @@ const ContactPage = () => {
                   </div>
                   <div>
                     <h4 className="font-medium text-gray-900">Email</h4>
-                    <p className="text-gray-600">support@packagetracker.com</p>
+                    <p className="text-gray-600">support@trackntraceit.com</p>
                   </div>
                 </div>
 
@@ -285,11 +285,11 @@ const ContactPage = () => {
                   <div>
                     <h4 className="font-medium text-gray-900">Address</h4>
                     <p className="text-gray-600">
-                      123 Shipping Lane
+                      P.O. Box 1203 Barangay,
                       <br />
-                      Suite 456
+                      San Pablo City
                       <br />
-                      Logistics City, LC 98765
+                      4000 Laguna PHL
                     </p>
                   </div>
                 </div>
