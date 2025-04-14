@@ -1,6 +1,6 @@
 # tracking/serializers.py
 from rest_framework import serializers
-from .models import Package, TrackingUpdate
+from .models import Package, TrackingUpdate, Contact
 
 class PackageSerializer(serializers.ModelSerializer):
     updates = serializers.SerializerMethodField()
@@ -26,3 +26,10 @@ class TrackingUpdateSerializer(serializers.ModelSerializer):
     
     def get_formatted_timestamp(self, obj):
         return obj.timestamp.strftime("%b %d, %Y %I:%M %p")
+
+
+class ContactSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Contact
+        fields = ['id', 'name', 'email', 'subject', 'message', 'created_at']
+        read_only_fields = ['created_at']

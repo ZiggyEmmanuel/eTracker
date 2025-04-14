@@ -48,6 +48,15 @@ const Sidebar = ({ closeSidebar }) => {
               Create Package
             </Link>
           </li>
+          <li>
+            <Link
+              to="/admin/contacts"
+              className="block p-2 hover:bg-gray-700 rounded transition-colors"
+              onClick={closeSidebar}
+            >
+              Contact Messages
+            </Link>
+          </li>
         </ul>
       </nav>
     </div>

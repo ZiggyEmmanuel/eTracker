@@ -2,7 +2,7 @@
 
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
-from .views import PackageViewSet, TrackingUpdateViewSet, TrackingUpdateDeleteView, AdminPackageViewSet, check_auth_status, get_csrf_token, api_login, api_logout
+from .views import PackageViewSet, TrackingUpdateViewSet, TrackingUpdateDeleteView, AdminPackageViewSet, check_auth_status, get_csrf_token, api_login, api_logout, ContactViewSet
 
 
 # Router
@@ -10,7 +10,7 @@ router = DefaultRouter()
 router.register(r'packages', PackageViewSet)
 router.register(r'tracking-updates', TrackingUpdateViewSet)
 router.register(r'admin/packages', AdminPackageViewSet, basename='admin-package')
-
+router.register(r'contacts', ContactViewSet)
 
 
 # URLs

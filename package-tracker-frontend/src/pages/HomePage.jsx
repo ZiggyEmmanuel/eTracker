@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import axios from "../axios";
 import { useNavigate } from "react-router-dom";
 import PackageStatusBadge from "../components/PackageStatusBadge";
@@ -8,7 +8,17 @@ const HomePage = () => {
   const [packageData, setPackageData] = useState(null);
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [pageLoading, setPageLoading] = useState(true);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    // Simulate initial loading
+    const timer = setTimeout(() => {
+      setPageLoading(false);
+    }, 1500); // Adjust time as needed
+
+    return () => clearTimeout(timer);
+  }, []);
 
   const handleTrackPackage = async () => {
     setIsLoading(true);
@@ -41,6 +51,43 @@ const HomePage = () => {
   const handleViewDetails = () => {
     navigate(`/package/${packageData.tracking_number}`);
   };
+
+  if (pageLoading) {
+    return (
+      <div className="fixed inset-0 bg-emerald-50 flex items-center justify-center">
+        <div className="text-center">
+          <div className="relative w-24 h-24 mx-auto mb-4">
+            <div className="absolute top-0 left-0 w-full h-full">
+              <div className="border-8 border-emerald-200 border-t-emerald-500 rounded-full w-24 h-24 animate-spin"></div>
+            </div>
+            {/* Package icon in the center */}
+            <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-12 w-12 text-emerald-600"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"
+                />
+              </svg>
+            </div>
+          </div>
+          <h2 className="text-2xl font-bold text-emerald-700 mb-2">
+            TRACKnTRACE
+          </h2>
+          <p className="text-emerald-600">
+            Loading your tracking experience...
+          </p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div>

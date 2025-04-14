@@ -4,6 +4,8 @@ import SideBar from "../components/admin/SideBar";
 import PackageList from "../components/admin/PackageList";
 import PackageCreate from "../components/admin/PackageCreate";
 import PackageEdit from "../components/admin/PackageEdit";
+import ContactList from "../components/admin/ContactList";
+import ContactDetails from "../components/admin/ContactDetails";
 
 const AdminDashboard = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -52,6 +54,8 @@ const AdminDashboard = () => {
             <Route path="/" element={<PackageList />} />
             <Route path="/packages/create" element={<PackageCreate />} />
             <Route path="/packages/:id/edit" element={<PackageEdit />} />
+            <Route path="/contacts" element={<ContactList />} />
+            <Route path="/contacts/:id" element={<ContactDetails />} />
           </Routes>
         </div>
       </div>

@@ -1,19 +1,44 @@
 import React, { useState } from "react";
+import axios from "axios";
 
 const ContactPage = () => {
   const [formStatus, setFormStatus] = useState(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    subject: "",
+    message: "",
+  });
 
-  // Mock form submission
-  const handleSubmit = (e) => {
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
 
-    // Simulate API call
-    setTimeout(() => {
-      setIsSubmitting(false);
+    try {
+      const response = await axios.post("/api/contacts/", formData);
       setFormStatus("success");
-    }, 1500);
+      // Clear form
+      setFormData({
+        name: "",
+        email: "",
+        subject: "",
+        message: "",
+      });
+    } catch (error) {
+      setFormStatus("error");
+      console.error("Error submitting form:", error);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -78,6 +103,8 @@ const ContactPage = () => {
                         id="name"
                         name="name"
                         required
+                        value={formData.name}
+                        onChange={handleChange}
                         className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none transition-colors"
                         placeholder="John Doe"
                       />
@@ -94,6 +121,8 @@ const ContactPage = () => {
                         id="email"
                         name="email"
                         required
+                        value={formData.email}
+                        onChange={handleChange}
                         className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none transition-colors"
                         placeholder="john@example.com"
                       />
@@ -112,6 +141,8 @@ const ContactPage = () => {
                       id="subject"
                       name="subject"
                       required
+                      value={formData.subject}
+                      onChange={handleChange}
                       className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none transition-colors"
                       placeholder="How can we help you?"
                     />
@@ -129,6 +160,8 @@ const ContactPage = () => {
                       name="message"
                       rows="5"
                       required
+                      value={formData.message}
+                      onChange={handleChange}
                       className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none transition-colors"
                       placeholder="Please provide details about your inquiry..."
                     ></textarea>

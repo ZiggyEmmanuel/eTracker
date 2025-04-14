@@ -3,8 +3,8 @@ from django.shortcuts import render
 from rest_framework import viewsets, status, permissions
 from rest_framework.decorators import action
 from rest_framework.response import Response
-from .models import Package, TrackingUpdate
-from .serializers import PackageSerializer, TrackingUpdateSerializer
+from .models import Package, TrackingUpdate, Contact
+from .serializers import PackageSerializer, TrackingUpdateSerializer, ContactSerializer
 from django.utils import timezone
 from rest_framework.permissions import IsAdminUser
 from rest_framework.generics import DestroyAPIView
@@ -116,6 +116,22 @@ class AdminPackageViewSet(viewsets.ModelViewSet):
             package.save()
             
             return Response({'status': 'status updated'})
+
+
+class ContactViewSet(viewsets.ModelViewSet):
+    queryset = Contact.objects.all()
+    serializer_class = ContactSerializer
+    permission_classes = [AllowAny]  # Allow anyone to submit contact form
+
+    def create(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        if serializer.is_valid():
+            self.perform_create(serializer)
+            return Response(
+                {"message": "Your message has been sent successfully!"},
+                status=status.HTTP_201_CREATED
+            )
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 @api_view(['POST'])

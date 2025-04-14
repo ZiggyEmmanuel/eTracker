@@ -102,6 +102,19 @@ class TrackingUpdate(models.Model):
         return f"{self.package.tracking_number} - {self.status} ({self.timestamp.strftime('%Y-%m-%d %H:%M')})"
 
 
+class Contact(models.Model):
+    name = models.CharField(max_length=100)
+    email = models.EmailField()
+    subject = models.CharField(max_length=200)
+    message = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.name} - {self.subject}"
+
+    class Meta:
+        ordering = ['-created_at']
+
 
 # Signal to create a tracking update when a package is created
 @receiver(post_save, sender=Package)
@@ -111,8 +124,9 @@ def create_initial_tracking_update(sender, instance, created, **kwargs):
         if not TrackingUpdate.objects.filter(package=instance).exists():
             TrackingUpdate.objects.create(
                 package=instance,
-                location="TRACKIFY Processing Center",
+                location="TRACKnTRACE Processing Center",
                 status="Label Created, not yet in system",
                 timestamp=timezone.now(),
-                notes=" A status update is not yet available on your package, Awaiting pickup by carrier. Check back later.",
+                notes=" A status update is not yet available on your package, Awaiting pickup by courier. Check back later.",
             )
+
